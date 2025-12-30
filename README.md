@@ -2,7 +2,7 @@
 
 A full-stack platform that scrapes blog articles, analyzes top-ranking competitor content, and uses Large Language Models (LLMs) to generate improved, SEO-optimized article versions — complete with citations and a modern frontend UI.
 
-This project is designed as a **resume-grade, production-style system** showcasing backend engineering, automation pipelines, LLM integration, and deployment.
+This project is designed to showcase backend engineering, automation pipelines, LLM integration, and deployment.
 
 ---
 
