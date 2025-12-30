@@ -50,10 +50,10 @@ const scrapeBeyondChats = async () => {
   console.log("Opening blogs page...");
   await page.goto(`${BASE_URL}/blogs`, { waitUntil: "networkidle2" });
 
-  // 👇 THIS IS THE KEY
+  
   console.log("Scrolling to load all articles...");
   await autoScroll(page);
-  await autoScroll(page); // scroll twice to be safe
+  await autoScroll(page); 
 
   // 📰 Extract article links AFTER scroll
   const articleLinks = await page.evaluate(() => {
@@ -73,17 +73,17 @@ const scrapeBeyondChats = async () => {
   console.log(`Found ${uniqueLinks.length} article links`);
 
   if (uniqueLinks.length < 5) {
-    console.log("❌ Not enough articles found");
+    console.log("Not enough articles found");
     process.exit(1);
   }
 
-  // 🕰️ Oldest articles = last ones
+  // Oldest articles = last ones
   const oldestFive = uniqueLinks.slice(-5);
 
   console.log("Oldest 5 article links:");
   console.log(oldestFive);
 
-  // 📄 Scrape each article
+  // Scrape each article
   for (const url of oldestFive) {
     console.log("Scraping:", url);
     await page.goto(url, { waitUntil: "networkidle2" });
@@ -121,7 +121,7 @@ const scrapeBeyondChats = async () => {
   }
 
   await browser.close();
-  console.log("✅ Scraping completed successfully");
+  console.log("Scraping completed successfully");
   process.exit();
 };
 

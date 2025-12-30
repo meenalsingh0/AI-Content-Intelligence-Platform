@@ -29,7 +29,7 @@ async function publishUpdatedArticle(payload) {
       console.log("==================================");
       console.log("Original Article:", article.title);
 
-      /* 1️⃣ Google search */
+      /* 1️ Google search */
       const competitors = await searchCompetitorArticles(article.title);
 
       if (competitors.length < 2) {
@@ -39,7 +39,7 @@ async function publishUpdatedArticle(payload) {
 
       console.log("Competitor URLs:", competitors);
 
-      /* 2️⃣ Scrape competitor content */
+      /* 2️ Scrape competitor content */
       const competitorContents = [];
 
       for (const url of competitors) {
@@ -52,7 +52,7 @@ async function publishUpdatedArticle(payload) {
         continue;
       }
 
-      /* 3️⃣ Rewrite using Groq */
+      /* 3️ Rewrite using Groq */
       console.log("Rewriting article with Groq...");
       const rewrittenContent = await rewriteArticle(
         article.content,
@@ -60,7 +60,7 @@ async function publishUpdatedArticle(payload) {
         competitorContents[1]
       );
 
-      /* 4️⃣ Add references */
+      /* 4️ Add references */
       const finalContent = `
 ${rewrittenContent}
 
@@ -71,7 +71,7 @@ ${rewrittenContent}
 - ${competitors[1]}
       `;
 
-      /* 5️⃣ Publish updated article */
+      /* 5️ Publish updated article */
       const updatedArticlePayload = {
         title: `${article.title} (Updated)`,
         slug: `${article.slug}-updated`,
