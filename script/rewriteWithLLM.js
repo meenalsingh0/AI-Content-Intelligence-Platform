@@ -14,11 +14,12 @@ Rewrite the ORIGINAL ARTICLE by improving:
 - formatting
 - depth
 
-Use ideas and structure inspiration from COMPETITOR ARTICLES.
+Use ideas and structure inspiration from the COMPETITOR ARTICLES.
 DO NOT plagiarize.
 DO NOT copy sentences.
+Write in original language and tone.
 
-Return well-formatted markdown.
+Return well-formatted MARKDOWN.
 
 ORIGINAL ARTICLE:
 ${original}
@@ -33,9 +34,16 @@ ${competitor2}
   const response = await groq.chat.completions.create({
     model: "llama-3.3-70b-versatile", 
     messages: [
-      { role: "system", content: "You rewrite blog articles professionally." },
-      { role: "user", content: prompt },
+      {
+        role: "system",
+        content: "You are a professional blog writer and SEO expert.",
+      },
+      {
+        role: "user",
+        content: prompt,
+      },
     ],
+    temperature: 0.7,
   });
 
   return response.choices[0].message.content;

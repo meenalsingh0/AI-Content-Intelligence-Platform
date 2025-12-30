@@ -1,12 +1,32 @@
 require("dotenv").config();
-const rewriteArticle = require("./rewriteWithLLM");
+const axios = require("axios");
 
-(async () => {
-  const result = await rewriteArticle(
-    "AI is changing customer support.",
-    "AI improves response time using chatbots.",
-    "Companies adopt AI to scale support."
+const API_BASE_URL = process.env.API_BASE_URL;
+
+async function fetchOriginalArticles() {
+  const response = await axios.get(`${API_BASE_URL}/articles`);
+
+  // only original articles
+  const originals = response.data.filter(
+    (article) => article.isUpdated === false
   );
 
-  console.log(result);
+  return originals;
+}
+
+(async () => {
+  try {
+    const articles = await fetchOriginalArticles();
+
+    console.log(`Fetched ${articles.length} original articles\n`);
+
+    articles.forEach((a, i) => {
+      console.log(`Article ${i + 1}:`);
+      console.log("Title:", a.title);
+      console.log("ID:", a._id);
+      console.log("-----------");
+    });
+  } catch (err) {
+    console.error("Error fetching articles:", err.message);
+  }
 })();
